@@ -1,6 +1,6 @@
 package io.awiya.portAppli;
 
-import io.awiya.model.Employee;
+import io.awiya.model.EmployeeDomain;
 import io.awiya.service.EmployeeService;
 
 import java.util.List;
@@ -8,23 +8,28 @@ import java.util.List;
 public class EmployeePortAppliImpl implements EmployeePortAppli {
 
     EmployeeService employeeService;
-    @Override
-    public List<Employee> getAllEmployees() {
-        return null;
+
+    public EmployeePortAppliImpl(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @Override
-    public Employee getEmployeeById(Long id) {
-        return null;
+    public List<EmployeeDomain> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 
     @Override
-    public Employee saveEmployee(Employee employee) {
-        return null;
+    public EmployeeDomain getEmployeeById(Long id) {
+        return employeeService.getEmployeeById(id);
+    }
+
+    @Override
+    public EmployeeDomain saveEmployee(EmployeeDomain employeeDomain) {
+        return employeeService.saveEmployee(employeeDomain);
     }
 
     @Override
     public void deleteEmployee(Long id) {
-
+        employeeService.deleteEmployee(id);
     }
 }

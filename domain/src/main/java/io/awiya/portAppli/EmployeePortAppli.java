@@ -1,16 +1,16 @@
 package io.awiya.portAppli;
 
-import io.awiya.model.Employee;
+import io.awiya.model.EmployeeDomain;
 
 import java.util.List;
 
 public interface EmployeePortAppli {
 
-    List<Employee> getAllEmployees();
+    List<EmployeeDomain> getAllEmployees();
 
-    Employee getEmployeeById(Long id);
+    EmployeeDomain getEmployeeById(Long id);
 
-    Employee saveEmployee(Employee employee);
+    EmployeeDomain saveEmployee(EmployeeDomain employeeDomain);
 
     void deleteEmployee(Long id);
 }

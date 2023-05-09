@@ -14,5 +14,4 @@ public class EmployeeDto {
     private Long id;
     private String name;
     private int age;
-    private Department department;
 }

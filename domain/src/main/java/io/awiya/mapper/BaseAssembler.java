@@ -1,6 +1,5 @@
 package io.awiya.mapper;
 
-import com.fasterxml.classmate.GenericType;
 import org.springframework.core.GenericTypeResolver;
 
 import java.lang.reflect.InvocationTargetException;

@@ -7,7 +7,8 @@ public class BaseModelMapperAssembler<M, D> extends BaseAssembler<M, D> implemen
     final ModelMapper assemblingMapper;
     final ModelMapper mergingMapper;
 
-    public BaseModelMapperAssembler() {
+    @SuppressWarnings("unchecked")
+    protected BaseModelMapperAssembler() {
         super();
         this.assemblingMapper = new ModelMapper();
         this.mergingMapper = new ModelMapper();

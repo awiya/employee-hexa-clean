@@ -2,9 +2,8 @@ package io.awiya.api;
 
 import io.awiya.dto.EmployeeDto;
 import io.awiya.mapper.EmployeeMapper;
-import io.awiya.model.Employee;
+import io.awiya.model.EmployeeDomain;
 import io.awiya.portAppli.EmployeePortAppli;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,11 +36,13 @@ public class EmployeeRessource {
 
     @PostMapping
     EmployeeDto saveEmployee(@RequestBody EmployeeDto employeeDto){
-        Employee employee = new Employee();
-        mapper.mergeDtoIntoModel(employeeDto, employee);
+        EmployeeDomain employeeDomain = new EmployeeDomain();
+        EmployeeDto dto = new EmployeeDto();
+        mapper.mergeDtoIntoModel(employeeDto, employeeDomain);
         //changed
-        Employee savedEmployee = employeePortAppli.saveEmployee(employee);
-        return mapper.assemble(savedEmployee);
+        EmployeeDomain savedEmployeeDomain = employeePortAppli.saveEmployee(employeeDomain);
+        mapper.assembleModelIntoDto(savedEmployeeDomain,dto);
+        return dto;
     }
 
     @DeleteMapping("/{id}")

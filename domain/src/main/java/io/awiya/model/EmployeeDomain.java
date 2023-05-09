@@ -1,12 +1,11 @@
 package io.awiya.model;
 
-public class Employee {
+public class EmployeeDomain {
     private Long id;
     private String name;
     private int age;
-    private Department department;
 
-    public Employee() {
+    public EmployeeDomain() {
     }
 
     public Long getId() {
@@ -33,11 +32,5 @@ public class Employee {
         this.age = age;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
 }

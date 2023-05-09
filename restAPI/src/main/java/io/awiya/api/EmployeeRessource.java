@@ -1,37 +1,53 @@
 package io.awiya.api;
 
-import io.awiya.model.Employee;
+import io.awiya.dto.EmployeeDto;
+import io.awiya.mapper.EmployeeMapper;
+import io.awiya.model.EmployeeDomain;
 import io.awiya.portAppli.EmployeePortAppli;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-
+@RequestMapping("/employees")
 public class EmployeeRessource {
 
 
     EmployeePortAppli employeePortAppli;
+    EmployeeMapper mapper ;
 
     public EmployeeRessource(EmployeePortAppli employeePortAppli) {
         this.employeePortAppli = employeePortAppli;
+        this.mapper = new EmployeeMapper();
     }
 
-    public List<Employee> getAllEmployees(){
-        return employeePortAppli.getAllEmployees();
+
+    @GetMapping
+    public List<EmployeeDto> getAllEmployees(){
+        return employeePortAppli.getAllEmployees().stream().map(mapper :: assemble).collect(Collectors.toList());
+
     }
 
-    Employee getEmployeeById(Long id){
-        return employeePortAppli.getEmployeeById(id);
+    @GetMapping("/{id}")
+    EmployeeDto getEmployeeById(@PathVariable Long id){
+        return mapper.assemble(employeePortAppli.getEmployeeById(id));
     }
 
-    Employee saveEmployee(Employee employee){
-        return employeePortAppli.saveEmployee(employee);
+    @PostMapping
+    EmployeeDto saveEmployee(@RequestBody EmployeeDto employeeDto){
+        EmployeeDomain employeeDomain = new EmployeeDomain();
+        EmployeeDto dto = new EmployeeDto();
+        mapper.mergeDtoIntoModel(employeeDto, employeeDomain);
+        //changed
+        EmployeeDomain savedEmployeeDomain = employeePortAppli.saveEmployee(employeeDomain);
+        mapper.assembleModelIntoDto(savedEmployeeDomain,dto);
+        return dto;
     }
 
-    void deleteEmployee(Long id){
-
+    @DeleteMapping("/{id}")
+    void deleteEmployee(@PathVariable Long id){
+        employeePortAppli.deleteEmployee(id);
     }
 
 
